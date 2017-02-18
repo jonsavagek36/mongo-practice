@@ -5,7 +5,8 @@ let getBtn = document.getElementById('getbtn');
 
 getBtn.addEventListener('click', function(event) {
   event.preventDefault();
-  let textNode = document.getElementById('randomstuff');
+  let listNode = document.getElementById('msgs');
+  listNode.innerHTML = '';
   fetch('/stuff')
     .then(response => {
       if (response.ok) {
@@ -16,8 +17,10 @@ getBtn.addEventListener('click', function(event) {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
-      textNode.innerHTML = data;
+      let messages = data;
+      messages.forEach(message => {
+        listNode.innerHTML += `<li>${message.content}</li>`;
+      });
     })
 });
 

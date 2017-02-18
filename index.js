@@ -11,26 +11,25 @@ let MongoClient = require('mongodb').MongoClient;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 MongoClient.connect('mongodb://localhost:27017/mongopractice', function(err, database) {
   db = database;
 
   app.get('/stuff', function(req, res) {
     let cursor = db.collection('stuff').find().toArray(function(err, results) {
-      if (err) {
-        console.log(err);
-      } else {
-        return results;
-      }
+      
     });
   });
   app.post('/stuff', function(req, res) {
-    db.collection('stuff').save(req.body, function(err, result) {
+    let answer;
+    db.collection('stuff').insert(req.body, function(err, result) {
       if (err) {
         console.log(err);
       } else {
-        return result;
+        answer = result;
       }
-    });
+    })
+    res.send(answer);
   });
 });

@@ -25,7 +25,7 @@ submitBtn.addEventListener('click', function(event) {
   event.preventDefault();
   let textNode = document.getElementById('whatever');
   let data = {
-    message: textNode.value
+    content: textNode.value
   };
   let myHeaders = new Headers();
   myHeaders.append('Content-Type','application/json');

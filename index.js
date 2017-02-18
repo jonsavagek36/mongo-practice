@@ -17,19 +17,19 @@ MongoClient.connect('mongodb://localhost:27017/mongopractice', function(err, dat
   db = database;
 
   app.get('/stuff', function(req, res) {
-    // let cursor = db.collection('stuff').find().toArray(function(err, results) {
-    //   console.log(results);
-    // });
+    let cursor = db.collection('stuff').find().toArray(function(err, results) {
+      
+    });
   });
   app.post('/stuff', function(req, res) {
-    // let answer;
-    // db.collection('stuff').insert(req.body, function(err, result) {
-    //   if (err) {
-    //     console.log(err);
-    //   } else {
-    //     answer = result;
-    //   }
-    // });
-    console.log(req.body);
+    let answer;
+    db.collection('stuff').insert(req.body, function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        answer = result;
+      }
+    })
+    res.send(answer);
   });
 });

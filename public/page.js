@@ -25,11 +25,14 @@ submitBtn.addEventListener('click', function(event) {
   event.preventDefault();
   let textNode = document.getElementById('whatever');
   let data = {
-    message: textNode.value
+    message: "hello"
   };
+  let myHeaders = new Headers();
+  myHeaders.append('Content-Type','application/json');
   fetch('/stuff', {
     method: 'POST',
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
+    headers: myHeaders
   })
     .then(response => {
       if (response.ok) {
@@ -37,10 +40,6 @@ submitBtn.addEventListener('click', function(event) {
       } else {
         console.log('Failed to POST');
       }
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
     })
   textNode.value = '';
 });
